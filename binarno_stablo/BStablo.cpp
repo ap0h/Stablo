@@ -512,3 +512,30 @@ int BStablo::deleteRightLeaves()
 	int br_obr = 0;
 	return  delRightLeaves(root->getright(), br_obr);
 }
+
+
+void  BStablo::brisi_desna_deca(Node *root, int &s)
+{
+	int leva = 0, desna = 0;
+	if (!root) return;
+
+	if (root->getright() != NULL) {
+		if ((root->getright()->getleft() == NULL && root->getright()->getright() == NULL))
+		{
+			s++;
+			//std::cout << "List je br: " << root->getright()->getKey() << " ";
+			delete root->getright();
+			root->setright(NULL);
+			return;
+		}
+	}
+	brisi_desna_deca(root->getleft(), s);
+	brisi_desna_deca(root->getright(), s);
+}
+
+int BStablo::brisi_desnu_decu_listovi()
+{
+	int s = 0;
+	brisi_desna_deca(root, s);
+	return s;
+}

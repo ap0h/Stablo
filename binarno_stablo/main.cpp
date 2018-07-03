@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 	cout << "====================================" << endl;
 	BStablo* novo = stablo.mirror();
 	//	stablo.ispisi_listove();
-	cout << endl << "Broj listova koji su desna deca je: " << stablo.desna_deca() << endl;
-	cout << endl << "Broj listova koji su leva deca je: " << stablo.leva_deca() << endl;
+	//cout << endl << "Broj listova koji su desna deca je: " << stablo.desna_deca() << endl;
+	//cout << endl << "Broj listova koji su leva deca je: " << stablo.leva_deca() << endl;
 	cout << "====================================" << endl;
 	cout << "Maksimalni je: " << stablo.MaxValue() << endl;
 	cout << stablo.isBalanced() << endl;
@@ -55,6 +55,14 @@ int main(int argc, char *argv[])
 	//stablo.leftPathmax(poc);
 	poc = stablo.nadji();
 	cout << "Ovo: " << stablo.Sum(1, 4) << endl;
-	cout << "desna or: " << stablo.deleteRightLeaves() << endl;
+	stablo.preorder();
+	cout << endl;
+	stablo.brisi_desnu_decu_listovi();
+	stablo.preorder();
+	cout << endl;
+	//cout << "desna or: " << stablo.deleteRightLeaves() << endl;
+	//cout << "desn: " << stablo.izdesne(stablo.root);
+	//cout << endl << "Broj listova koji su desna deca je: " << stablo.desna_deca() << endl;
+	//cout << endl << "Broj listova koji su leva deca je: " << stablo.leva_deca() << endl;
 	return 0;
 }

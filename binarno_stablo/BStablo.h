@@ -3,7 +3,7 @@
 static int counter;
 class BStablo
 {
-private:
+	public:
 	Node * root;
 	long broj_elemenata;
 public:
@@ -31,7 +31,9 @@ public:
 	Node ** nadji();
 	int Sum(int min, int max);
 	int deleteRightLeaves();
+	int brisi_desnu_decu_listovi();
 private:
+	void brisi_desna_deca(Node*root, int &s);
 	Node * nadji(Node *root);
 	void Sum(Node *root, int min, int max, int &suma, int dubina);
 	void preorder(Node *p);
