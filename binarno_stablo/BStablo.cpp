@@ -491,3 +491,24 @@ void BStablo::Sum(Node *root, int min, int max, int &suma, int dubina)
 	if (dubina > min && dubina < max) suma += root->getKey();
 
 }
+
+
+int BStablo::delRightLeaves(Node * root, int & br_obrisanih)
+{
+	if (!root) return NULL;
+	if (!root->getleft() && !root->getright())
+	{
+		delete root;
+		br_obrisanih++;
+		return NULL;
+	}
+	root->setleft(delRightLeaves(root->getleft(), br_obrisanih));
+	root->setright(delRightLeaves(root->getright(), br_obrisanih));
+	return br_obrisanih;
+}
+
+int BStablo::deleteRightLeaves()
+{
+	int br_obr = 0;
+	return  delRightLeaves(root->getright(), br_obr);
+}

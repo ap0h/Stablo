@@ -55,5 +55,6 @@ int main(int argc, char *argv[])
 	//stablo.leftPathmax(poc);
 	poc = stablo.nadji();
 	cout << "Ovo: " << stablo.Sum(1, 4) << endl;
+	cout << "desna or: " << stablo.deleteRightLeaves() << endl;
 	return 0;
 }

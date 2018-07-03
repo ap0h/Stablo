@@ -30,6 +30,7 @@ public:
 	int leftPathmax(Node **start); //najduzi levi put vraca duzinu parametar cvor od koga pocinje najduzi put ako ne postoji vraca KOREN
 	Node ** nadji();
 	int Sum(int min, int max);
+	int deleteRightLeaves();
 private:
 	Node * nadji(Node *root);
 	void Sum(Node *root, int min, int max, int &suma, int dubina);
@@ -50,4 +51,5 @@ private:
 	int max(Node *root);
 	void printGivenLevel(Node* p, int level);
 	int leftMax(Node *p, int &left, int &max, Node **maxNode);
+	int delRightLeaves(Node *root, int &br_obrisanih);
 };
