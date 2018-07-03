@@ -3,7 +3,7 @@
 static int counter;
 class BStablo
 {
-	public:
+private:
 	Node * root;
 	long broj_elemenata;
 public:
