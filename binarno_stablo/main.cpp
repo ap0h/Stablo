@@ -6,27 +6,19 @@
 using namespace std;
 
 
-int fib(int n)
-{
-	if (n == 0) return 0;
-	if (n == 1) return 1;
-	return fib(n - 1) + fib(n - 2);
-}
-
-
-
 int main(int argc, char *argv[])
 {
 	BStablo stablo;
 
+
 	stablo.insert(2);
 	stablo.insert(3);
 	stablo.insert(11);
-	stablo.insert(4);
-	stablo.insert(12);
+	//stablo.insert(4);
+	//stablo.insert(12);
 	stablo.insert(1);
-	stablo.insert(15);
-
+	//stablo.insert(15);
+	
 	/*
 	stablo.insert(6);
 	stablo.insert(4);
@@ -57,9 +49,12 @@ int main(int argc, char *argv[])
 	cout << "Ovo: " << stablo.Sum(1, 4) << endl;
 	stablo.preorder();
 	cout << endl;
-	stablo.brisi_desnu_decu_listovi();
+//	stablo.brisi_desnu_decu_listovi();
 	stablo.preorder();
 	cout << endl;
+	cout << "====================================" << endl;
+	cout << "ima ih: " << stablo.countGreater(5);
+	Node ** naso = stablo.findCommonAncestor(1, 15);
 	//cout << "desna or: " << stablo.deleteRightLeaves() << endl;
 	//cout << "desn: " << stablo.izdesne(stablo.root);
 	//cout << endl << "Broj listova koji su desna deca je: " << stablo.desna_deca() << endl;

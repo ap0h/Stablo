@@ -344,42 +344,27 @@ int BStablo::max(Node *root)
 
 	return maxs;
 }
+//svaki cvor mi treba zna razliku od njegovo levo idesno podstablu 
 
-
-int BStablo::dif(Node * p, int & sl, int & sd, int & max, bool &t)
-{
-	int levo = 0, desno = 0;
+int BStablo::dif(Node * p,int & razlika)//cilj mi je da nadjem max razliku u broju cvorova od levo i desno podstablo
+{	//za svaki cvor i ako je ona veca od 1 onda nije balanisarno ako u suprotnom jeste
 	if (!p) return 0;
-	levo = dif(p->getleft(), sl, sd, max, t);
-	desno = dif(p->getright(), sl, sd, max, t);
-	if (p->getleft() == NULL && p->getleft() == NULL)
-	{
-		return 1;
-	}
+	
+	if (!p->getleft() && !p->getright()) return 1;
 
+	int levo = dif(p->getleft(), razlika);
+	int desno = dif(p->getright(), razlika);
 
-
-	int dif = abs(levo - desno);
-
-	if (dif > max)
-	{
-		max = dif;
-		if (max > 1) t = false;
-	}
-
-	sl = levo;
-	sd = desno;
-
-	return sl + sd + 1;
-
+	int razl = abs(levo - desno);
+	if (razl > razlika) razlika = razl;
+	return levo + desno + 1;
 }
 
 bool BStablo::isBalanced()
 {
-	int sl = 0, sd = 0, max = 0;
-	bool jeste = true;
-	int m = dif(root, sd, sl, max, jeste);
-	return jeste;
+	int razlika = 0;
+	int s = dif(root, razlika); // funkcija vraca ukupan broj cvorova, a razlika predstavlja max razliku 
+	return (razlika > 1) ? false : true;
 }
 
 void BStablo::LevelOrder()
@@ -538,4 +523,80 @@ int BStablo::brisi_desnu_decu_listovi()
 	int s = 0;
 	brisi_desna_deca(root, s);
 	return s;
+}
+
+
+int BStablo::countGreater(Node *p, int value)
+{
+	if (!p) return 0;
+	if (!p->getleft() && !p->getright())
+	{
+		if (p->getKey() > value) return 1;
+		else
+			return 0;
+	}
+
+	int desno = countGreater(p->getright(), value);
+	int levo = countGreater(p->getleft(), value);
+	
+	return (p->getKey() > value) ? (levo + desno + 1) : levo+desno;
+}
+
+int BStablo::countGreater(int value)
+{
+	return countGreater(root, value);
+}
+
+Node ** BStablo::findCommonAncestor(int a, int b)
+{
+	Node **p = new Node*;
+	int nebitno = findCommonAncestor(a, b, p, root);
+	return p;
+}
+
+
+int BStablo::findCommonAncestor(int a, int b, Node ** p, Node * root)
+{
+	if (!root) return NULL;
+	if (!root->getleft() && !root->getright())
+	{
+		if (root->getKey() == a || root->getKey() == b)
+		{
+			return root->getKey();
+		}
+		return NULL;
+	}
+	int levo = findCommonAncestor(a, b, p, root->getleft());
+	int desno = findCommonAncestor(a, b, p, root->getright());
+	int rootkey = root->getKey();
+	if (rootkey == a) // koren jedank sa a i ili levo ili desno podstablo vratilo b, naso sam cvor
+	{
+		if (levo == b || desno == b) 
+		{
+			*p = root;
+			return rootkey;
+		}
+	}
+	else if (rootkey == b) // koren jedak sa be i ili levo ili desno podstablo vratilo a, naso sam cvor
+	{
+		if (levo == a || desno == a)
+		{
+			*p = root;
+			return rootkey;
+		}
+	}
+	else if (levo != NULL && desno != NULL)//treci slucaj ako su i levo i desno vratili nesto sto nije nula, onda su sigurno vratili a i b
+	{ // pod pretpostavkom da se cvorovi ne ponavljaju i da se ne unosi ista vrednost za a i za b
+		*p = root;
+		return rootkey;
+	}
+	else if (levo != NULL) // ako nije izaso negde iznad ostao je slucaj ili da je levo vratilo, ili desno, ako nije nista od toga onda su obra
+	{		//vratila NULL
+		return levo;
+	}
+	else if (desno != NULL)
+	{
+		return desno;
+	}
+	return NULL; 
 }
